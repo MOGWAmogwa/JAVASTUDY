@@ -36,7 +36,7 @@ class Fighter extends Unit implements Fightable {
 
 //The type Fighter must implement the inherited abstract method Fightable.attact(Fightable)
 
-public class instanceStudy_fighterTest {
+public class interfaceStudy_fighterTest {
 
 	public static void main(String[] args) {
 //		Fighter f = new Fighter();
@@ -54,6 +54,10 @@ public class instanceStudy_fighterTest {
 		
 		Fighter kai = new Fighter();
 		Fightable vi= kai.getFightable();
+		vi.move(10, 10);
+		
+		kai.attack(vi);
+
 	
 		
 
