@@ -61,8 +61,7 @@ class Buyer {
 	int money = 10000;
 	int bonusPoint = 0 ;
 
-	
-	
+
 	Product[] cart = new Product[5];
 	
 	int i = 0 ;
