@@ -24,7 +24,7 @@ class Point1 {
 	}
 }
 
-class Point3D extends Point1 {
+class Point3D extends Point_1 {
 	int z ; 
 	
 	Point3D (int x, int y , int z) {

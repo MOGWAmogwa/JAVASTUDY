@@ -2,7 +2,7 @@ package instanceOf;
 
 class InstanceOfTest {
 
-	 static void main(String[] args) {
+	 public static void main(String[] args) {
 
 		 FireEngine fe = new FireEngine();
 		 

@@ -27,7 +27,7 @@ package Casting;
 
 }
 
-class Car{
+class MyCar{
 	String color;
 	int door;
 
@@ -43,7 +43,7 @@ class Car{
 }
 
 
-class FireEngine extends MyCar{
+class MyFireEngine extends MyCar{
 	void water() {
 		System.out.println("water");
 	}
