@@ -5,13 +5,13 @@ public class stringSplit_repeat1 {
 
 	public static void main(String[] args) {
 		String animals = "dog, cat, bear";
-		String[] arr = animals.split(",");
+		String[] arrs = animals.split(",");
 		
-		System.out.println(String.join(" ", arr));
+		System.out.println(String.join(" ", arrs));
 		
 		StringJoiner sj = new StringJoiner("/", "[", "]");
-		for(String s : arr)
-			sj.add(s);
+		for(String arr : arrs)
+			sj.add(arr);
 		
 		System.out.println(sj.toString());
 

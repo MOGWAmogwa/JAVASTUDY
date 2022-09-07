@@ -16,7 +16,7 @@ class Person {
 	}
 }
 
-public class Equlas_personTest {
+public class equlas_personTest {
 
 	public static void main(String[] args) {
 		Person bina = new Person(16012033);

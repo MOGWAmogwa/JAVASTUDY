@@ -17,7 +17,7 @@ class Person1 {
 	
 }
 
-public class Equals_personTest_repeat1 {
+public class equals_personTest_repeat1 {
 
 	public static void main(String[] args) {
 		Person1 HyeMin = new Person1(930924);

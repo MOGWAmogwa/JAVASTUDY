@@ -37,7 +37,7 @@ public class InterfaceTest{
 
 }
 
-
+//
 //package Interface;
 //
 //class A { // 인터페이스를 안쓰고 이렇게 쓰면 A 클래스도 변경해야함 
@@ -70,4 +70,4 @@ public class InterfaceTest{
 //
 //}
 // 
-
+//
