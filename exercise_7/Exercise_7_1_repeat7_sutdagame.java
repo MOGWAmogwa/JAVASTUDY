@@ -1,6 +1,6 @@
 package exercise_7;
 
-public class Excercise_7_1_repeat7_sutdagame {
+public class Exercise_7_1_repeat7_sutdagame {
 
 	public static void main(String[] args) {
 		Deck7 deck = new Deck7();
