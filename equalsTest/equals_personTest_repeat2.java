@@ -3,12 +3,10 @@ package equalsTest;
 public class equals_personTest_repeat2 {
 
 	public static void main(String[] args) {
-		
+	
 		Person HHM = new Person(930924);
 		Person Hongmin = new Person(930924);
 		
-		
-
 	}
 
 }
@@ -28,3 +26,7 @@ class Person {
 			return false;
 	}
 }
+
+// 그림 그려본 횟수 ⬇️⬇️
+
+// 💖
