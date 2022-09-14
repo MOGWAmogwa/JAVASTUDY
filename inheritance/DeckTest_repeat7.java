@@ -27,7 +27,6 @@ class Deck_{
 				cards[i++] = new Card_(n+1, k);
 			}
 		}
-
 	}
 	
 	Card_ pick() {
