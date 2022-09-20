@@ -16,7 +16,7 @@ public class HashMapEx1_repeat5 {
 			Scanner scanner = new Scanner(System.in);
 			
 			System.out.println("id : ");
-			String id = scanner.nextLine();
+			String id = scanner.nextLine(); // next()의 경우 공백이 낀 문자열을 읽을 수 없다. nextLine()은 가능!
 			
 			System.out.println("pw : ");
 			String pw = scanner.nextLine();
