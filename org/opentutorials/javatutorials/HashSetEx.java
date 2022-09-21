@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 import java.util.*;
 
 
@@ -20,6 +20,7 @@ public class HashSetEx {
 }
 
 class Human {
+	
 	int age;
 	String name;
 	
@@ -31,4 +32,5 @@ class Human {
 	public String toString() {
 		return name + "";
 	}
+	
 }

@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 
 public class Casting_repeat1 {
 
@@ -9,7 +9,7 @@ public class Casting_repeat1 {
 		FireEngine_ fe2 = null;
 		
 		car = fe; 
-		
+		 
 		fe2 = (FireEngine_)car;
 		
 		

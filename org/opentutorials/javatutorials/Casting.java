@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 
 public class Casting {
 	public static void main(String[] args) {

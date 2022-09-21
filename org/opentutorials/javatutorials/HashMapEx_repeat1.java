@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 import java.util.*;
 
 public class HashMapEx_repeat1 {

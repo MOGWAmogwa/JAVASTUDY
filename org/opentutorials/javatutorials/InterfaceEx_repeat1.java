@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 
 public class InterfaceEx_repeat1 {
 

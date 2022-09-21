@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 import java.util.*;
 
 public class ArrayListEx2_repeat1 {

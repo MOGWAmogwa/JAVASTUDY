@@ -1,4 +1,4 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 import java.util.*;
 
 public class HashMapEx {
@@ -25,7 +25,7 @@ public class HashMapEx {
 		
 		int total = 0 ; 
 		
-		it = values.iterator();
+		it = values.iterator(); // Interface? collection 에 저장된  데이터에 접근하는데 사용되는 인터페이스 
 		
 		while(it.hasNext()) {
 			Integer i = (Integer)it.next();

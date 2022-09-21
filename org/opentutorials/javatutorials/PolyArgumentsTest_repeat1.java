@@ -1,5 +1,6 @@
-package TIS_JAVA_STUDY;
+package java_repeat;
 import java.util.*;
+
 public class PolyArgumentsTest_repeat1 {
 
 	public static void main(String[] args) {
