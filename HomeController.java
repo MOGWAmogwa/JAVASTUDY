@@ -1,4 +1,4 @@
-package com.fastcampus.ch2;
+package com.Fastcampus.app;
 
 import java.text.DateFormat;
 import java.util.Date;
