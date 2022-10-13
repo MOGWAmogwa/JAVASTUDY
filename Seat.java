@@ -1,34 +1,28 @@
-package reservation_system_repeat2;
-import java.util.*;
+package reservation_system_repeat8;
 
 public class Seat {
-	
-	public String name;
+
+	String name; 
 	
 	Seat(){
-		this.name = null;
+		name = null;
 	}
-
-	public void reserveName(String name) {
+	
+	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public boolean isOccupied() {
-		if(name == null)
-			return false;
-		else 
-			return true;
-	}
-	
-//	public void cancel() {
-//		name = null;
-//	}
-	
-//    public boolean match(String name) {
-//        return (name.equals(name));
-//    }
-	
-	public String getName() {
+	public String getName () {
 		return name;
 	}
+	
+	public boolean isOccupied() {
+		if(name != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 }
