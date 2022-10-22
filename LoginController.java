@@ -1,10 +1,12 @@
-package com.Fastcampus.app;
-import java.net.URLEncoder;
+package com.fastcampus.ch2;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,38 +18,39 @@ public class LoginController {
 	public String loginForm() {
 		return "loginForm";
 	}
-
-	@PostMapping("/login")
-	public String login(String id, String pwd, boolean rememberId, HttpServletResponse response) throws Exception {
-		System.out.println("id="+id);
-		System.out.println("pwd="+pwd);
-		System.out.println("rememberId="+rememberId);
-		// 1. id와 pwd를 확인
-		if(!loginCheck(id, pwd)) {
-			// 2-1   일치하지 않으면, loginForm으로 이동
-			String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
-			
-			return "redirect:/login/login?msg="+msg;
-		}
-		
-		// 2-2. id와 pwd가 일치하면,
-		if(rememberId) {
-		//     1. 쿠키를 생성
-			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
-//		       2. 응답에 저장
-			response.addCookie(cookie);
-		} else {
-// 		       1. 쿠키를 삭제
-			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
-			cookie.setMaxAge(0); // 쿠키를 삭제
-//		       2. 응답에 저장
-			response.addCookie(cookie);
-		}
-//		3. 홈으로 이동
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		// 세션에 있던 id 정보를 지워주기
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "redirect:/";
 	}
 
+	@PostMapping("/login")
+	public String login( String id, String pwd, String toURL, HttpServletRequest request) throws UnsupportedEncodingException {
+		// @CookieValue("JSESSIONID") String sessionId
+		// id & pwd를 체크, 유효하지 않은 id라면 다시 로그인 화면으로 돌아가게 만든다.
+		if(!loginCheck(id, pwd)) {
+			//String msg = URLEncoder.encode("invalid id", "utf-8");
+
+			return "redirect:/login/login";
+		}
+		
+		// id & pwd가 유효하다면 session에 저장한다. 
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("id", id);
+		
+		// 저장 후 home 화면으로 이동시킨다. 
+		
+		toURL = toURL== null || toURL.equals("") ? "/" : toURL ;
+		
+		return "redirect:"+toURL;
+	}
+
 	private boolean loginCheck(String id, String pwd) {
+
 		return "asdf".equals(id) && "1234".equals(pwd);
 	}
 }
