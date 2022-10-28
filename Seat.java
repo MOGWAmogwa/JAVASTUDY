@@ -1,28 +1,27 @@
-package reservation_system_repeat8;
+package reservation_system_repeat10;
 
 public class Seat {
-
-	String name; 
+	
+	String name;
 	
 	Seat(){
-		name = null;
+		this.name = null;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getName () {
-		return name;
-	}
-	
+
 	public boolean isOccupied() {
 		if(name != null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-	
 	
 }
