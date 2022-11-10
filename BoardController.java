@@ -1,36 +1,92 @@
-package com.fastcampus.ch2;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
+package com.fastcampus.ch4.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import com.fastcampus.ch4.domain.BoardDto;
+import com.fastcampus.ch4.domain.PageHandler;
+import com.fastcampus.ch4.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	@GetMapping("/list")
-	public String list(HttpServletRequest request) throws UnsupportedEncodingException {
-		
-		// board ¸¦ Å¬¸¯ÇßÀ» ¶§ ¹Ù·Î °Ô½ÃÆÇÀ¸·Î ÀÌµ¿ÇØ¼­´Â ¾ÈµÇ°í, loginCheck()¸¦ ÅëÇØ¼­ ·Î±×ÀÎÀÌ µÇ¾îÀÖ´Ù¸é boardList.jsp¸¦ º¸¿©ÁØ´Ù.
-		// ·Î±×ÀÎÀÌ ¾ÈµÇ¾î ÀÖÀ¸¸é ´Ù½Ã /login/login À¸·Î redirect ÇÑ´Ù 
-		
-		if(!loginCheck(request)) {
-			String msg = URLEncoder.encode("°Ô½ÃÆÇÀº ·Î±×ÀÎÀ» ÇØ¾ß ÀÌ¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.", "utf-8");
-			return "redirect:/login/login?toURL="+request.getRequestURL();
-		}
-		
-		return "boardList";
-	}
+    @Autowired
+    BoardService boardService;
 
-	private boolean loginCheck(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		return session.getAttribute("id") != null;
-	}
+    @GetMapping("/list")
+    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+        if(!loginCheck(request))
+            return "redirect:/login/login?toURL="+request.getRequestURL();  // ë¡œê·¸ì¸ì„ ì•ˆí–ˆìœ¼ë©´ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™
 
+        if(page == null) page = 1;
+        if(pageSize == null) pageSize = 3;
+
+        try {
+            int totalCnt = boardService.getCount(); // 50ê°œ
+            PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
+
+            Map map = new HashMap();
+            map.put("offset", (page-1)*pageSize);
+            map.put("pageSize", pageSize);
+
+            List<BoardDto> list =  boardService.getPage(map);
+            m.addAttribute("list", list);
+            m.addAttribute("ph", pageHandler);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize" + pageSize);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "boardList"; // ë¡œê·¸ì¸ì„ í•œ ìƒíƒœì´ë©´, ê²Œì‹œíŒ í™”ë©´ìœ¼ë¡œ ì´ë™
+    }
+
+    @GetMapping("/read")
+    public String read(Integer bno, Integer page, Integer pageSize, Model m) throws Exception{
+
+        try {
+
+            BoardDto boardDto = boardService.read(bno);
+            m.addAttribute(boardDto);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize" , pageSize);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "board";
+
+    }
+
+    @GetMapping("/remove")
+    public String redirectListPage(Integer bno, String writer, Integer page, Integer pageSize, Model m){
+        return "redirect:/board/list?page=" + page.intValue() + "&pageSize=" + pageSize.intValue() ;
+    }
+
+    @PostMapping("/remove")
+    public void remove(Integer bno, String writer, Integer page, Integer pageSize, Model m) throws Exception{
+
+        System.out.println("page = " + page);
+    }
+
+    private boolean loginCheck(HttpServletRequest request) {
+        // 1. ì„¸ì…˜ì„ ì–»ì–´ì„œ
+        HttpSession session = request.getSession();
+        // 2. ì„¸ì…˜ì— idê°€ ìˆëŠ”ì§€ í™•ì¸, ìˆìœ¼ë©´ trueë¥¼ ë°˜í™˜
+        return session.getAttribute("id")!=null;
+    }
 }
