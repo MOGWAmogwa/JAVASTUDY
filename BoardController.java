@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.fastcampus.ch4.dao.BoardDao;
 import com.fastcampus.ch4.domain.BoardDto;
 import com.fastcampus.ch4.domain.PageHandler;
+import com.fastcampus.ch4.domain.SearchCondition;
 import com.fastcampus.ch4.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,16 +30,15 @@ public class BoardController {
     BoardService boardService;
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto, HttpServletRequest request,HttpSession session, Model m, RedirectAttributes rattr){
-        String writer = (String)session.getAttribute("id");
+    public String modify(BoardDto boardDto, HttpServletRequest request, HttpSession session, Model m, RedirectAttributes rattr) {
+        String writer = (String) session.getAttribute("id");
         boardDto.setWriter(writer);
         try {
 
             int rowCtn = boardService.modify(boardDto); // insert
 
-            if(rowCtn !=1 ){
+            if (rowCtn != 1) {
                 throw new Exception("Modify Fail");
-
             }
 
             rattr.addFlashAttribute("msg", "MDF_OK");
@@ -56,23 +56,21 @@ public class BoardController {
     }
 
 
-
-
     @GetMapping("/write")
-    public String write (Model m){
+    public String write(Model m) {
         m.addAttribute("mode", "new");
         return "board"; // 읽기와 쓰기에 모두 사용하고 쓰기에 사용할 때에 "new"를 준다.
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, HttpServletRequest request,HttpSession session, Model m, RedirectAttributes rattr){
-        String writer = (String)session.getAttribute("id");
+    public String write(BoardDto boardDto, HttpServletRequest request, HttpSession session, Model m, RedirectAttributes rattr) {
+        String writer = (String) session.getAttribute("id");
         boardDto.setWriter(writer);
         try {
 
             int rowCtn = boardService.write(boardDto); // insert
 
-            if(rowCtn !=1 ){
+            if (rowCtn != 1) {
                 throw new Exception("Write Fail");
 
             }
@@ -92,28 +90,21 @@ public class BoardController {
     }
 
 
-
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String list(SearchCondition sc, Model m, HttpServletRequest request) {
         if (!loginCheck(request))
             return "redirect:/login/login?toURL=" + request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
-        if (page == null) page = 1;
-        if (pageSize == null) pageSize = 3;
-
         try {
-            int totalCnt = boardService.getCount(); // 50개
-            PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
 
-            Map map = new HashMap();
-            map.put("offset", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
+            int totalCnt = boardService.getSearchResultCnt(sc);
+            m.addAttribute("totalCnt", totalCnt);
 
-            List<BoardDto> list = boardService.getPage(map);
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+
+            List<BoardDto> list = boardService.getSearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize" + pageSize);
 
         } catch (Exception e) {
             e.printStackTrace();
