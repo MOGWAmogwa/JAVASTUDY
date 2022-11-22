@@ -8,9 +8,7 @@ public class Practice4_4 {
 		int i = 0 ; 
 		int sum = 0 ; 
 		while(sum < 100) {
-			
 			i++;
-			
 			if(i%2==0) {
 				sum = sum + -i ; 
 			}else {

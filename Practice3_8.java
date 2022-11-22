@@ -7,6 +7,12 @@ public class Practice3_8 {
 		double d = 0.1;
 		
 		
+		//f2 = (float)d;
+		d =f2;
+		
+		System.out.println(f2==d);
+		
+		
 	}
 
 }
