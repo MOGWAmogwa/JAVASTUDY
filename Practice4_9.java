@@ -10,7 +10,8 @@ public class Practice4_9 {
 		
 		
 		String str = "12345"; // 얘를 반복문으로 charAt(i)을 써서 하나하나씩 빼온다음에 sum에 더해줄거임
-		int sum = 0 ; 
+		int sum = 0 ;
+		long regno = 9604221234567L;
 		
 
 		for(int i = 0 ; i < str.length() ; i++) {
@@ -19,7 +20,9 @@ public class Practice4_9 {
 			
 			// 근데 그냥 chartAt(i) 로 하면 1 2 3 4 5 가 나오는데 sum 이 0 숫자형이라서 연산을 해버리면 49 50 이렇게 문자코드(?) 가 나오심.. 그래서 이걸 바꿔줘야함
 			
-			sum = sum + (str.charAt(i)-'0'); // 요로코롬 바꿔주겠음
+				sum = sum + (str.charAt(i)-'0'); // 요로코롬 바꿔주겠음
+			
+		
 		
 		}
 		System.out.println(sum); // 잘나옴~~
